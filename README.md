@@ -1,58 +1,101 @@
-<<<<<<< HEAD
-# React + TypeScript + Vite
+# TaskAI
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## English
 
-Currently, two official plugins are available:
+A modern task management application built with React, TypeScript, and Vite.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Features
 
-## Expanding the ESLint configuration
+- ⚡️ Lightning fast performance with Vite
+- 🎨 Modern and responsive UI
+- 🔒 User authentication
+- 📱 Mobile-friendly design
+- 🌐 Real-time updates
+- 🎯 Task organization and management
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Tech Stack
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+- React 18
+- TypeScript
+- Vite
+- Tailwind CSS
+- React Router
+- SWC for Fast Refresh
+
+### Getting Started
+
+1. Clone the repository
+
+```bash
+git clone https://github.com/vobaolong/task-ai.git
+cd task-ai
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+2. Install dependencies
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+```bash
+npm install
 ```
-=======
-# task-ai
->>>>>>> 38d3cecb7a6866397e63ab9e4718bd6e5fee6d99
+
+3. Run development server
+
+```bash
+npm run dev
+```
+
+4. Build for production
+
+```bash
+npm run build
+```
+
+---
+
+## Tiếng Việt
+
+Ứng dụng quản lý công việc hiện đại được xây dựng bằng React, TypeScript và Vite.
+
+### Tính năng
+
+- ⚡️ Hiệu suất nhanh như chớp với Vite
+- 🎨 Giao diện người dùng hiện đại và tương thích
+- 🔒 Xác thực người dùng
+- 📱 Thiết kế thân thiện với thiết bị di động
+- 🌐 Cập nhật thời gian thực
+- 🎯 Tổ chức và quản lý công việc
+
+### Công nghệ sử dụng
+
+- React 18
+- TypeScript
+- Vite
+- Tailwind CSS
+- React Router
+- SWC cho Fast Refresh
+
+### Hướng dẫn cài đặt
+
+1. Clone dự án
+
+```bash
+git clone https://github.com/vobaolong/task-ai.git
+cd task-ai
+```
+
+2. Cài đặt các gói phụ thuộc
+
+```bash
+npm install
+```
+
+3. Chạy máy chủ phát triển
+
+```bash
+npm run dev
+```
+
+4. Build cho production
+
+```bash
+npm run build
+```
