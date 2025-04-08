@@ -4,6 +4,7 @@
  * @description Sign in page for the app
  */
 
+// Components
 import Head from '@/components/Head'
 import { SignIn } from '@clerk/clerk-react'
 
