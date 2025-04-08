@@ -1,7 +1,7 @@
 /**
  * @copyright 2025 danielDev
  * @license Apache-2.0
- * @description Loader for the inbox page
+ * @description Loader for the completed task page
  */
 
 import { databases, Query } from '@/lib/appwrite'
@@ -14,19 +14,19 @@ const TASKS_COLLECTION_ID = import.meta.env.VITE_APPWRITE_TASKS_COLLECTION_ID
 const getTasks = async () => {
   try {
     return await databases.listDocuments(DATABASE_ID, TASKS_COLLECTION_ID, [
-      Query.equal('completed', false), // get only uncompleted tasks
-      Query.isNull('project'), // get only tasks without a project
+      Query.equal('completed', true), // get only completed tasks
+      Query.orderDesc('$updatedAt'), // order tasks by updated at
       Query.equal('userId', getUserId() as string) // get only tasks for the current user
     ])
   } catch (error) {
     console.error(error)
-    throw new Error('Error getting inbox task')
+    throw new Error('Error getting completed task')
   }
 }
 
-const inboxTaskLoader: LoaderFunction = async () => {
+const completedTaskLoader: LoaderFunction = async () => {
   const tasks = await getTasks()
   return { tasks }
 }
 
-export default inboxTaskLoader
+export default completedTaskLoader
