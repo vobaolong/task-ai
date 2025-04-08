@@ -18,6 +18,8 @@ import RootLayout from '@/layouts/RootLayout'
 
 // Router
 import { createBrowserRouter, RouteObject } from 'react-router'
+import appAction from '@/routes/actions/appAction'
+import inboxTaskLoader from '@/routes/loaders/inboxLoader'
 
 const rootRouteChildren: RouteObject[] = [
   {
@@ -41,7 +43,8 @@ const rootRouteChildren: RouteObject[] = [
 const appRouteChildren: RouteObject[] = [
   {
     path: '/app/inbox',
-    element: <InboxPage />
+    element: <InboxPage />,
+    loader: inboxTaskLoader
   }
 ]
 
@@ -55,7 +58,8 @@ const router = createBrowserRouter([
   {
     path: '/app',
     element: <AppLayout />,
-    children: appRouteChildren
+    children: appRouteChildren,
+    action: appAction
   }
 ])
 
