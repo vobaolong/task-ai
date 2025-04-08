@@ -18,7 +18,8 @@ import {
   SidebarMenuItem,
   SidebarMenuBadge,
   SidebarGroupLabel,
-  SidebarGroupAction
+  SidebarGroupAction,
+  useSidebar
 } from './ui/sidebar'
 
 import {
@@ -33,8 +34,12 @@ import Logo from './Logo'
 import { UserButton } from '@clerk/clerk-react'
 import { ChevronRight, CirclePlus, Plus } from 'lucide-react'
 import { SIDEBAR_LINKS } from '@/constants'
+import { useLocation } from 'react-router'
 
 const AppSideBar = () => {
+  const location = useLocation()
+  const { isMobile, setOpenMobile } = useSidebar()
+
   return (
     <Sidebar>
       <SidebarHeader>
@@ -54,16 +59,20 @@ const AppSideBar = () => {
                   </SidebarMenuButton>
                 </TaskDialogForm>
               </SidebarMenuItem>
-
               {/* Sidebar links */}
               {SIDEBAR_LINKS.map((link) => (
                 <SidebarMenuItem key={link.href}>
-                  <SidebarMenuButton asChild>
+                  <SidebarMenuButton
+                    asChild
+                    isActive={link.href === location.pathname}
+                    onClick={() => {
+                      if (isMobile) setOpenMobile(false)
+                    }}
+                  >
                     <Link to={link.href}>
                       <link.icon /> {link.label}
                     </Link>
                   </SidebarMenuButton>
-
                   <SidebarMenuBadge>0</SidebarMenuBadge>
                 </SidebarMenuItem>
               ))}

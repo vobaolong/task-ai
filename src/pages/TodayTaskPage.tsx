@@ -1,7 +1,7 @@
 /**
  * @copyright 2025 danielDev
  * @license Apache-2.0
- * @description Inbox page for the app
+ * @description Today task page for the app
  */
 
 // Components
@@ -14,10 +14,12 @@ import TaskEmptyState from '@/components/TaskEmptyState'
 import TaskForm from '@/components/TaskForm'
 import TopAppBar from '@/components/TopAppBar'
 import { Models } from 'appwrite'
+import { startOfToday } from 'date-fns'
+import { CheckCircle2 } from 'lucide-react'
 import { useState } from 'react'
 import { useFetcher, useLoaderData } from 'react-router'
 
-const InboxPage = () => {
+const TodayTaskPage = () => {
   const [showTaskForm, setShowTaskForm] = useState(false)
   const fetcher = useFetcher()
 
@@ -27,11 +29,16 @@ const InboxPage = () => {
 
   return (
     <>
-      <Head title='Inbox - TaskAI' />
-      <TopAppBar title='Inbox' taskCount={20} />
+      <Head title='Today - TaskAI' />
+      <TopAppBar title='Today' taskCount={tasks.total} />
       <Page>
         <PageHeader>
-          <PageContent>Inbox</PageContent>
+          <PageContent>Today</PageContent>
+          {tasks.total > 0 && (
+            <div className='flex items-center gap-1.5 text-sm text-muted-foreground'>
+              <CheckCircle2 size={16} /> {tasks.total} tasks
+            </div>
+          )}
         </PageHeader>
         <PageList>
           {tasks.documents.map(
@@ -51,7 +58,7 @@ const InboxPage = () => {
             <TaskCreateButton onClick={() => setShowTaskForm(true)} />
           )}
 
-          {!tasks.total && !showTaskForm && <TaskEmptyState type='inbox' />}
+          {!tasks.total && !showTaskForm && <TaskEmptyState type='today' />}
 
           {showTaskForm && (
             <TaskForm
@@ -65,6 +72,11 @@ const InboxPage = () => {
                   encType: 'application/json'
                 })
               }}
+              defaultFormData={{
+                content: '',
+                due_date: startOfToday(),
+                project: null
+              }}
             />
           )}
         </PageList>
@@ -73,4 +85,4 @@ const InboxPage = () => {
   )
 }
 
-export default InboxPage
+export default TodayTaskPage
