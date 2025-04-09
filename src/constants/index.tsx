@@ -8,15 +8,15 @@ import { Calendar1, CircleCheck, CalendarDays, Inbox } from 'lucide-react'
 
 export const SOCIAL_LINKS = [
   {
-    href: 'https://youtube.com/vobaolong317',
+    href: 'https://youtube.com/vobaolong',
     label: 'YouTube'
   },
   {
-    href: 'https://linkedin.com/in/vobaolong317',
+    href: 'https://linkedin.com/in/vobaolong',
     label: 'LinkedIn'
   },
   {
-    href: 'https://github.com/vobaolong317',
+    href: 'https://github.com/vobaolong',
     label: 'GitHub'
   }
 ] as const
