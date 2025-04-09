@@ -29,13 +29,13 @@ import {
 } from './ui/collapsible'
 import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip'
 import TaskDialogForm from './TaskDialogForm'
+import ProjectFormDialog from './ProjectFormDialog'
 
 import Logo from './Logo'
 import { UserButton } from '@clerk/clerk-react'
 import { ChevronRight, CirclePlus, Plus } from 'lucide-react'
 import { SIDEBAR_LINKS } from '@/constants'
 import { useLocation } from 'react-router'
-
 const AppSideBar = () => {
   const location = useLocation()
   const { isMobile, setOpenMobile } = useSidebar()
@@ -93,11 +93,13 @@ const AppSideBar = () => {
             </SidebarGroupLabel>
 
             <Tooltip>
-              <TooltipTrigger>
-                <SidebarGroupAction aria-label='Add project'>
-                  <Plus />
-                </SidebarGroupAction>
-              </TooltipTrigger>
+              <ProjectFormDialog method='POST'>
+                <TooltipTrigger>
+                  <SidebarGroupAction aria-label='Add project'>
+                    <Plus />
+                  </SidebarGroupAction>
+                </TooltipTrigger>
+              </ProjectFormDialog>
 
               <TooltipContent side='right'>Add Project</TooltipContent>
             </Tooltip>
