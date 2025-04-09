@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /**
  * @copyright 2025 danielDev
  * @license Apache-2.0
@@ -18,6 +19,7 @@ import { useFetcher, useLoaderData } from 'react-router'
 import type { SearchingState } from '@/components/ProjectSearchField'
 import { useCallback, useRef, useState } from 'react'
 import { cn } from '@/lib/utils'
+
 type DateType = {
   projects: Models.DocumentList<Models.Document>
 }

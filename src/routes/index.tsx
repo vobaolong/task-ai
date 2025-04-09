@@ -29,6 +29,10 @@ import completedTaskLoader from './loaders/completedTaskLoader'
 import projectAction from './actions/projectAction'
 import ProjectPage from '@/pages/ProjectPage'
 import projectsLoader from './loaders/projectsLoader'
+import ProjectDetailPage from '@/pages/ProjectDetailPage'
+import projectDetailLoader from './loaders/projectDetailLoader'
+import appLoader from './loaders/appLoader'
+import ProjectErrorBoundary from '@/pages/ProjectErrorBoundary'
 
 const rootRouteChildren: RouteObject[] = [
   {
@@ -75,6 +79,12 @@ const appRouteChildren: RouteObject[] = [
     element: <ProjectPage />,
     action: projectAction,
     loader: projectsLoader
+  },
+  {
+    path: 'projects/:projectId',
+    element: <ProjectDetailPage />,
+    loader: projectDetailLoader,
+    errorElement: <ProjectErrorBoundary />
   }
 ]
 
@@ -89,7 +99,8 @@ const router = createBrowserRouter([
     path: '/app',
     element: <AppLayout />,
     children: appRouteChildren,
-    action: appAction
+    action: appAction,
+    loader: appLoader
   }
 ])
 

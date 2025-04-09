@@ -19,7 +19,7 @@ import {
   AlertDialogTrigger
 } from './ui/alert-dialog'
 import { truncateString } from '@/lib/utils'
-import { useFetcher } from 'react-router'
+import { useFetcher, useLocation, useNavigate } from 'react-router'
 import { useCallback } from 'react'
 import { useToast } from '@/hooks/use-toast'
 
@@ -31,12 +31,17 @@ const ProjectDeleteButton: React.FC<ProjectDeleteButtonProps> = ({
   defaultFormData
 }) => {
   const fetcher = useFetcher()
-
+  const location = useLocation()
+  const navigate = useNavigate()
   const { toast } = useToast()
 
   const handleDelete = useCallback(async () => {
+    if (location.pathname === `/app/projects/${defaultFormData.id}`) {
+      navigate('/app/inbox')
+    }
+
     const { id, update } = toast({
-      title: 'Deleting project',
+      title: 'Deleting project ...',
       duration: Infinity
     })
     try {
