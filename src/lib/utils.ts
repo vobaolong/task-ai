@@ -30,7 +30,7 @@ export function toTitleCase(str: string) {
 export function formatCustomDate(date: string | number | Date) {
   const today = new Date()
 
-  const relativeDay = formatRelative(date, today).split(' at ')[0]
+  const relativeDay = formatRelative(new Date(date), today).split(' at ')[0]
 
   const relativeDays = [
     'Today',
@@ -48,10 +48,10 @@ export function formatCustomDate(date: string | number | Date) {
     return relativeDay
   }
 
-  if (isSameYear(date, today)) {
-    return format(date, 'dd MMM')
+  if (isSameYear(new Date(date), today)) {
+    return format(new Date(date), 'dd MMM')
   } else {
-    return format(date, 'dd MMM yyyy')
+    return format(new Date(date), 'dd MMM yyyy')
   }
 }
 
