@@ -26,7 +26,7 @@ const HomePage = () => {
               and life with AI.
             </p>
             <Button asChild size={'lg'}>
-              <Link to='/signup'>Start for free</Link>
+              <Link to='/sign-up'>Start for free</Link>
             </Button>
           </div>
           <figure className='bg-secondary rounded-2xl overflow-hidden aspect-square max-md:max-w-[480px] max-md:mx-auto md:aspect-video'>

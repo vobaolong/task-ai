@@ -11,7 +11,8 @@ import {
   Hash,
   Inbox,
   X,
-  SendHorizonal
+  SendHorizonal,
+  Check
 } from 'lucide-react'
 
 // Components
@@ -35,6 +36,7 @@ import type { TaskForm } from '@/types'
 import { useCallback, useEffect, useState } from 'react'
 import * as chrono from 'chrono-node'
 import { cn, formatCustomDate, getTaskDueDateColorClass } from '@/lib/utils'
+import { useProject } from '@/hooks/context/ProjectContext'
 
 type TaskFormProps = {
   defaultFormData?: TaskForm
@@ -57,9 +59,12 @@ const TaskForm: React.FC<TaskFormProps> = ({
   onCancel,
   onSubmit
 }) => {
+  const projects = useProject()
   const [taskContent, setTaskContent] = useState(defaultFormData.content)
   const [dueDate, setDueDate] = useState(defaultFormData.due_date)
-  const [project, setProject] = useState(defaultFormData.project)
+  const [projectId, setProjectId] = useState(defaultFormData.project)
+  const [projectName, setProjectName] = useState('')
+  const [projectColor, setProjectColor] = useState('')
   const [dueDateOpen, setDueDateOpen] = useState(false)
   const [projectOpen, setProjectOpen] = useState(false)
   const [formData, setFormData] = useState(defaultFormData)
@@ -73,13 +78,25 @@ const TaskForm: React.FC<TaskFormProps> = ({
   }, [taskContent, onSubmit, formData])
 
   useEffect(() => {
+    const project = projects?.documents.find(({ $id }) => $id === projectId)
+
+    if (project) {
+      setProjectName(project.name)
+      setProjectColor(project.color_hex)
+    } else {
+      setProjectName('')
+      setProjectColor('')
+    }
+  }, [projects, projectId])
+
+  useEffect(() => {
     setFormData((prevFormData) => ({
       ...prevFormData,
       content: taskContent,
       due_date: dueDate,
-      project: project
+      project: projectId
     }))
-  }, [taskContent, dueDate, project])
+  }, [taskContent, dueDate, projectId])
 
   useEffect(() => {
     const chronoParsed = chrono.parse(taskContent)
@@ -124,6 +141,7 @@ const TaskForm: React.FC<TaskFormProps> = ({
               <Calendar
                 mode='single'
                 initialFocus
+                selected={dueDate ? new Date(dueDate) : undefined}
                 disabled={{ before: new Date() }}
                 onSelect={(selected) => {
                   setDueDate(selected || null)
@@ -163,7 +181,11 @@ const TaskForm: React.FC<TaskFormProps> = ({
               size='sm'
               aria-expanded={projectOpen}
             >
-              <Inbox /> Inbox <ChevronDown />
+              {projectName ? <Hash color={projectColor} /> : <Inbox />}
+
+              <span className='truncate'>{projectName || 'Inbox'}</span>
+
+              <ChevronDown />
             </Button>
           </PopoverTrigger>
 
@@ -174,13 +196,29 @@ const TaskForm: React.FC<TaskFormProps> = ({
                 <ScrollArea>
                   <CommandEmpty>No project found.</CommandEmpty>
 
-                  <CommandGroup heading='Folders'>
-                    <CommandItem>
-                      <Hash /> Project 01
-                    </CommandItem>
-                    <CommandItem>
-                      <Hash /> Project 02
-                    </CommandItem>
+                  <CommandGroup>
+                    {projects?.documents.map(({ $id, name, color_hex }) => (
+                      <CommandItem
+                        key={$id}
+                        onSelect={(selectedValue) => {
+                          setProjectName(
+                            selectedValue === projectName ? '' : name
+                          )
+                          setProjectId(
+                            selectedValue === projectName ? null : $id
+                          )
+                          setProjectColor(
+                            selectedValue === projectName
+                              ? undefined
+                              : color_hex
+                          )
+                          setProjectOpen(false)
+                        }}
+                      >
+                        <Hash color={color_hex} /> {name}
+                        {projectName === name && <Check className='ms-auto' />}
+                      </CommandItem>
+                    ))}
                   </CommandGroup>
                 </ScrollArea>
               </CommandList>

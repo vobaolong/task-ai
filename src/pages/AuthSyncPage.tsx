@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 /**
  * @copyright 2025 danielDev
  * @license Apache-2.0
@@ -15,29 +14,50 @@ const AuthSyncPage = () => {
   const { isSignedIn, isLoaded, userId } = useAuth()
 
   useEffect(() => {
-    if (!isLoaded) return
-    if (!isSignedIn) {
-      if (localStorage.getItem('clerkUserId')) {
-        localStorage.removeItem('clerkUserId')
+    const syncAuth = async () => {
+      if (!isLoaded) return
+
+      // If user is signed in, save ID and redirect
+      if (isSignedIn && userId) {
+        localStorage.setItem('clerkUserId', userId)
+        navigate('/app/today', { replace: true })
+        return
       }
-      navigate('/')
-      return
+
+      // If user is not signed in, clear storage and redirect
+      if (isLoaded && !isSignedIn) {
+        localStorage.removeItem('clerkUserId')
+        navigate('/', { replace: true })
+      }
     }
-    if (isSignedIn) {
-      localStorage.setItem('clerkUserId', userId)
-      navigate('/app/today')
-    }
-  }, [isLoaded, isSignedIn, userId])
-  return (
-    <>
-      <Head title='Auth Sync | TaskAI & Project Management' />
-      <section>
-        <div className='container flex justify-center'>
-          <SignIn signUpUrl='/sign-up' />
-        </div>
-      </section>
-    </>
-  )
+
+    syncAuth()
+  }, [isLoaded, isSignedIn, userId, navigate])
+
+  // Show loading state while checking auth
+  if (!isLoaded) {
+    return (
+      <div className='flex items-center justify-center h-screen'>
+        <div className='w-8 h-8 border-b-2 rounded-full animate-spin border-primary'></div>
+      </div>
+    )
+  }
+
+  // Only show sign in form if not signed in
+  if (!isSignedIn) {
+    return (
+      <>
+        <Head title='Auth Sync | TaskAI & Project Management' />
+        <section>
+          <div className='container flex justify-center'>
+            <SignIn signUpUrl='/sign-up' />
+          </div>
+        </section>
+      </>
+    )
+  }
+
+  return null
 }
 
 export default AuthSyncPage

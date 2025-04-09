@@ -83,7 +83,7 @@ export function generateUniqueId(): string {
 
 export function getUserId(): string | null {
   const clerkUserId = localStorage.getItem('clerkUserId')
-  if (!clerkUserId) {
+  if (!clerkUserId && window.location.pathname !== '/auth-sync') {
     redirect('/auth-sync')
     return ''
   }
