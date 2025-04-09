@@ -10,7 +10,7 @@ import { PropsWithChildren, useEffect, useState } from 'react'
 import { Dialog, DialogContent, DialogTrigger } from './ui/dialog'
 import TaskForm from './TaskForm'
 import { useFetcher, useLocation } from 'react-router'
-import { startOfToday } from 'date-fns'
+import startOfToday from 'date-fns/startOfToday'
 
 const TaskDialogForm: React.FC<PropsWithChildren> = ({ children }) => {
   const [open, setOpen] = useState(false)

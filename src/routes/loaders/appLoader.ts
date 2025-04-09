@@ -7,7 +7,8 @@
 import { databases, Query } from '@/lib/appwrite'
 import { getUserId } from '@/lib/utils'
 import type { Models } from 'appwrite'
-import { startOfToday, startOfTomorrow } from 'date-fns'
+import startOfToday from 'date-fns/startOfToday'
+import startOfTomorrow from 'date-fns/startOfTomorrow'
 import { redirect, type LoaderFunction } from 'react-router'
 
 const DATABASE_ID = import.meta.env.VITE_APPWRITE_DATABASE_ID

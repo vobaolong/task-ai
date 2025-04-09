@@ -5,15 +5,13 @@
  */
 
 import { clsx, type ClassValue } from 'clsx'
-import {
-  format,
-  formatRelative,
-  isBefore,
-  isSameYear,
-  isToday,
-  isTomorrow,
-  startOfToday
-} from 'date-fns'
+import format from 'date-fns/format'
+import formatRelative from 'date-fns/formatRelative'
+import isBefore from 'date-fns/isBefore'
+import isSameYear from 'date-fns/isSameYear'
+import isToday from 'date-fns/isToday'
+import isTomorrow from 'date-fns/isTomorrow'
+import startOfToday from 'date-fns/startOfToday'
 import { redirect } from 'react-router'
 import { twMerge } from 'tailwind-merge'
 
