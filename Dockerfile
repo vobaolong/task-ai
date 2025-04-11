@@ -1,31 +1,23 @@
-# Build stage
-FROM node:18-alpine as build
+# Giai đoạn build
+FROM node:18-alpine
 
+# Thiết lập thư mục làm việc
 WORKDIR /app
 
-# Copy package files
+# Copy các file package
 COPY package*.json ./
 
-# Install dependencies
+# Cài đặt dependencies
 RUN npm install
 
-# Copy source code
+# Copy mã nguồn
 COPY . .
 
-# Build the app
+# Build ứng dụng
 RUN npm run build
 
-# Production stage
-FROM nginx:alpine
+# Mở port (port mặc định của vite)
+EXPOSE 5173
 
-# Copy built assets from build stage
-COPY --from=build /app/dist /usr/share/nginx/html
-
-# Copy nginx config
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-
-# Expose port 80
-EXPOSE 80
-
-# Start nginx
-CMD ["nginx", "-g", "daemon off;"]
+# Khởi động ứng dụng
+CMD ["npm", "run", "preview", "--", "--host", "0.0.0.0"]
